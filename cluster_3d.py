@@ -101,7 +101,7 @@ class Kmeans():
             diff = centroids - former_centroids
             if diff.any() < self.varepsilon:
                 break
-        print( centroids)
+        print(centroids)
         return self.get_cluster_labels(clusters, X)
 
 
@@ -111,33 +111,35 @@ def main():
     # 读取用于聚类的数据
     # X = np.loadtxt("3d_data.dat")
     X = datasets.load_iris().data
+    X = X[:,:3]
     # 用Kmeans算法进行聚类
     clf = Kmeans(k=3)
     y_pred = clf.predict(X)
-    print (y_pred)
+    for i in range(len(y_pred)):
+        print(y_pred[i], X[i])
 
     #对聚类完成后的标签进行计数
-    s = 0
-    for i in y_pred:
-        if i==0:
-            s+=1
-        else:
-            s0 = s
-    # print(s0)
-    a = 0
-    for i in y_pred:
-        if i == 1:
-            a += 1
-        else:
-            s1 = a
-    # print(s1)
-    b=0
-    for i in y_pred:
-        if i == 2:
-            b += 1
-        else:
-            s2 = b
-    # print(s2)
+    # s = 0
+    # for i in y_pred:
+    #     if i==0:
+    #         s+=1
+    #     else:
+    #         s0 = s
+    # # print(s0)
+    # a = 0
+    # for i in y_pred:
+    #     if i == 1:
+    #         a += 1
+    #     else:
+    #         s1 = a
+    # # print(s1)
+    # b=0
+    # for i in y_pred:
+    #     if i == 2:
+    #         b += 1
+    #     else:
+    #         s2 = b
+    # # print(s2)
 
 
     # new a figure and set it into 3d
@@ -147,13 +149,10 @@ def main():
     figure1 = ax1.scatter(X[y_pred == 0][:, 0], X[y_pred == 0][:, 1], X[y_pred == 0][:, 2], c='r')
     figure2 = ax1.scatter(X[y_pred == 1][:, 0], X[y_pred == 1][:, 1], X[y_pred == 1][:, 2],c='b')
     figure3 = ax1.scatter(X[y_pred == 2][:, 0], X[y_pred == 2][:, 1], X[y_pred == 2][:, 2], c='y')
-    # figure4 = ax1.scatter(0.68666667, 4.9, 1.44,s=200, c='black')
-    # figure5 = ax1.scatter(1.76875, 1.7875, 1.40625, s=200, c='green')
-    # figure6 = ax1.scatter(1.37878788, 2.82424242, 1.26969697, s=200, c='purple')
 
-    ax1.set_zlabel('TTC')  # 坐标轴
-    ax1.set_ylabel('DST')
-    ax1.set_xlabel('PET')
+    ax1.set_zlabel('X')  # 坐标轴
+    ax1.set_ylabel('Y')
+    ax1.set_xlabel('Z')
     plt.show()
 
 
