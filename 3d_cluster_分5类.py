@@ -7,6 +7,7 @@ from sklearn.cluster import KMeans
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from sklearn import metrics
 
 
 # 正规化数据集 X
@@ -37,7 +38,7 @@ class Kmeans():
         则说明算法已经收敛
     """
 
-    def __init__(self, k=5, max_iterations=100000, varepsilon=0.001):
+    def __init__(self, k=5, max_iterations=100000, varepsilon=0.0001):
         self.k = k
         self.max_iterations = max_iterations
         self.varepsilon = varepsilon
@@ -46,8 +47,11 @@ class Kmeans():
     def init_random_centroids(self, X):
         n_samples, n_features = np.shape(X)
         centroids = np.zeros((self.k, n_features))
+
+        random_1 = np.random.choice(range(n_samples))　# 由于数据特殊性，指定初始聚类中心
+        
         for i in range(self.k):
-            centroid = X[np.random.choice(range(n_samples))]
+            centroid = X[(random_1+i*500)%len(X)]
             centroids[i] = centroid
         return centroids
 
@@ -122,7 +126,7 @@ def main():
     y_pred = clf.predict(X)
     # for i in range(len(y_pred)):
         # print(y_pred[i], X[i])
-
+    print(y_pred)
 
     # new a figure and set it into 3d
     ax1 = plt.subplot(111, projection='3d')  # 创建一个三维的绘图工程
